@@ -46,6 +46,22 @@ void postorder(Nod *root) {
   postorder(root->right);
   cout << root->val << " ";
 }
+
+Nod *stergeRoot(Nod *root) {
+  if (!root)
+    return nullptr;
+  if (!root->left)
+    return root->right;
+  if (!root->right)
+    return root->left;
+  Nod *succ = root->right;
+  while (succ->left)
+    succ = succ->left;
+
+  root->val = succ->val;
+  root->right = stergeRoot(root->right);
+  return root;
+}
 int main() {
   int n, x;
   cin >> n;
